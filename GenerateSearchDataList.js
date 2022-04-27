@@ -1,19 +1,21 @@
-// ã‚¨ã‚¯ã‚»ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ãŒå…¥ã£ã¦ã„ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªï¼ˆã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰ã®ç›¸å¯¾ãƒ‘ã‚¹ã‚’æƒ³å®šï¼‰
+// ƒGƒNƒZƒ‹ƒtƒ@ƒCƒ‹‚ª“ü‚Á‚Ä‚¢‚éƒfƒBƒŒƒNƒgƒŠi‚±‚ÌƒXƒNƒŠƒvƒg‚©‚ç‚Ì‘Š‘ÎƒpƒX‚ğ‘z’èj
 var TargetDir = "./";
 
-// ãƒ•ã‚¡ã‚¤ãƒ«ã®æ‹¡å¼µå­ï¼ˆä½™è¨ˆãªãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¾ãªã„å¯¾ç­–ï¼‰
+// ƒtƒ@ƒCƒ‹‚ÌŠg’£qi—]Œv‚Èƒtƒ@ƒCƒ‹“Ç‚İ‚Ü‚È‚¢‘Îôj
 var TargetFileExt = "xlsx";
 
-// å¯¾è±¡ã®ã‚·ãƒ¼ãƒˆå
-var TargetSheetName = "æ“ä½œ";
+// ‘ÎÛ‚ÌƒV[ƒg–¼
+var TargetSheetName = "‘€ì";
 
-// ãƒ†ãƒ¼ãƒ–ãƒ«ã®é–‹å§‹è¡Œï¼ˆãƒ˜ãƒƒãƒ€ã§ã¯ãªããƒ‡ãƒ¼ã‚¿ã®é–‹å§‹ï¼‰
+// ƒe[ƒuƒ‹‚ÌŠJnsiƒwƒbƒ_‚Å‚Í‚È‚­ƒf[ƒ^‚ÌŠJnj
+var StartRowSpecifiedMode = 2; // 1: ŒÅ’è’l(TargetStartRow)A2:“Á’è‚Ì’l‚ªo‚é‚Ü‚ÅA—ñ‚ğ‘–¸‚·‚é
 var TargetStartRow = 2;
+var StartRowSearchStr = "No."
 
-// å–å¾—å¯¾è±¡ãƒ‡ãƒ¼ã‚¿
-// ãƒ‡ãƒ¼ã‚¿ã‚’æ•°å€¤ã§æŒ‡å®šã™ã‚‹ã‚‚ã®ã«ã¤ã„ã¦ã¯ã€Aåˆ—ãªã‚‰1ã€Båˆ—ãªã‚‰2ã€ã€ã€ã®ã‚ˆã†ã«æŒ‡å®šã™ã‚‹ã€‚ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆæ‹¡å¼µå­ç„¡ã—ï¼‰ã‚’ä½¿ã„ãŸã„å ´åˆã¯0ã‚’æŒ‡å®šã™ã‚‹
-var KeyCols = [6, 7]; // æ¤œç´¢ã‚­ãƒ¼ã¨ã—ãŸã„ãƒ‡ãƒ¼ã‚¿ã®åˆ—ä¸€è¦§ã‚’æ•°å€¤ã§æŒ‡å®šã€è¤‡æ•°æŒ‡å®šã®å ´åˆã¯å·¦ã‹ã‚‰é †ã«éšå±¤ã«ãªã‚‹ã€‚ç©ºã‚»ãƒ«ã‚’å«ã‚€å ´åˆãã®è¡Œã‚’ç„¡è¦–
-var DataCols = [0, 2]; // æ¤œç´¢çµæœã«å‡ºã—ãŸã„ãƒ‡ãƒ¼ã‚¿ã®åˆ—ä¸€è¦§ã‚’æ•°å€¤ã§æŒ‡å®šã€å…¨ã¦ç©ºã‚»ãƒ«ã®å ´åˆãã®è¡Œã‚’ç„¡è¦–
+// æ“¾‘ÎÛƒf[ƒ^
+// ƒf[ƒ^‚ğ”’l‚Åw’è‚·‚é‚à‚Ì‚É‚Â‚¢‚Ä‚ÍAA—ñ‚È‚ç1AB—ñ‚È‚ç2AAA‚Ì‚æ‚¤‚Éw’è‚·‚éBƒtƒ@ƒCƒ‹–¼iŠg’£q–³‚µj‚ğg‚¢‚½‚¢ê‡‚Í0‚ğw’è‚·‚é
+var KeyCols = [6, 7]; // ŒŸõƒL[‚Æ‚µ‚½‚¢ƒf[ƒ^‚Ì—ñˆê——‚ğ”’l‚Åw’èA•¡”w’è‚Ìê‡‚Í¶‚©‚ç‡‚ÉŠK‘w‚É‚È‚éB‹óƒZƒ‹‚ğŠÜ‚Şê‡‚»‚Ìs‚ğ–³‹
+var DataCols = [0, 2]; // ŒŸõŒ‹‰Ê‚Éo‚µ‚½‚¢ƒf[ƒ^‚Ì—ñˆê——‚ğ”’l‚Åw’èA‘S‚Ä‹óƒZƒ‹‚Ìê‡‚»‚Ìs‚ğ–³‹
 
 
 
@@ -33,30 +35,30 @@ fs = null;
 function main() {
 	var data = new Object();
 	
-	// æŒ‡å®šéšå±¤ã«ã‚ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã®åˆ—æŒ™
+	// w’èŠK‘w‚É‚ ‚éƒtƒ@ƒCƒ‹‚Ì—ñ‹“
 	var path = fs.GetAbsolutePathName(TargetDir);
 	var files = fs.GetFolder(path).Files;
 	var e = new Enumerator(files);
 	for ( ; !e.atEnd(); e.moveNext()) {
 		var file = e.item();
-		// æ‹¡å¼µå­ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°
+		// Šg’£q‚Åƒtƒ@ƒCƒ‹‚ğƒtƒBƒ‹ƒ^ƒŠƒ“ƒO
 		if(fs.GetExtensionName(file.Path) == TargetFileExt) {
 			LoadData(file.Path, data);
 		}
 	}
 	
-	// ä¸€åº¦é…åˆ—ã§ä½œã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’æ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹ï¼ˆéåŠ¹ç‡ã ãŒå¯èª­æ€§ã®ãŸã‚ã“ã®ã¾ã¾ã¨ã™ã‚‹ã€‚ï¼‰
+	// ˆê“x”z—ñ‚Åì‚Á‚½ƒf[ƒ^‚ğ•¶š—ñ‚É•ÏŠ·‚·‚éi”ñŒø—¦‚¾‚ª‰Â“Ç«‚Ì‚½‚ß‚±‚Ì‚Ü‚Ü‚Æ‚·‚éBj
 	ArrayToStringRecursive(data);
 	
-	// ãƒ‡ãƒ¼ã‚¿ã‚’HTMLã§æ‰±ãˆã‚‹ã‚ˆã†ã€Jsonå½¢å¼ã«å¤‰æ›ã™ã‚‹
+	// ƒf[ƒ^‚ğHTML‚Åˆµ‚¦‚é‚æ‚¤AJsonŒ`®‚É•ÏŠ·‚·‚é
 	var html = new ActiveXObject('htmlfile');
 	html.write('<meta http-equiv="x-ua-compatible" content="IE=11" />');
 	var JSON = html.parentWindow.JSON;
 	var ret = JSON.stringify(data);
 	
-	// ãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãè¾¼ã¿
+	// ƒtƒ@ƒCƒ‹‘‚«‚İ
 	var file = fs.OpenTextFile( "searchDataList.js", 2, true, -2 );
-	file.Write("var SearchData = " + ret + ";"); // Javascriptã‹ã‚‰æ‰±ãˆã‚‹ã‚ˆã†ã€å¤‰æ•°å®£è¨€ã¨ã™ã‚‹ã€‚
+	file.Write("var SearchData = " + ret + ";"); // Javascript‚©‚çˆµ‚¦‚é‚æ‚¤A•Ï”éŒ¾‚Æ‚·‚éB
 
 	file.Close();
 }
@@ -74,7 +76,21 @@ function LoadData(filePath, result) {
 	}
 	if(!sheet) return;
 	
-	var lastRow = sheet.UsedRange.Cells(sheet.UsedRange.Count).Row + 1; // å–ã‚Šã“ã¼ã—ãŒæ€–ã„ã®ã§+1ã—ã¦ãŠãï¼ˆãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ãŒè¦‹ã¤ã‹ã‚‰ãªã„ãƒ»ãƒ»ãƒ»ï¼‰
+	var lastRow = sheet.UsedRange.Cells(sheet.UsedRange.Count).Row + 1; // æ‚è‚±‚Ú‚µ‚ª•|‚¢‚Ì‚Å+1‚µ‚Ä‚¨‚­iƒŠƒtƒ@ƒŒƒ“ƒX‚ªŒ©‚Â‚©‚ç‚È‚¢EEEj
+	
+	// ŠJns‚ğŒˆ‚ß‚é
+	var startRow = -1;
+	if(StartRowSpecifiedMode == 1) {
+		startRow = TargetStartRow;
+	}
+	else if(StartRowSpecifiedMode == 2) {
+		for(var i = 1; i < lastRow; i++) {
+			if(sheet.Cells(i, 1).Value == StartRowSearchStr) {
+				TargetStartRow = i+1;
+			}
+		}
+	}
+	
 	for(var i = TargetStartRow; i < lastRow; i++) {
 		var currentData = new Array();
 		var hasDefined = false;
@@ -120,7 +136,7 @@ function LoadData(filePath, result) {
 	excel.Quit()
 }
 
-// Objectã‚’å†å¸°çš„ã«æ¤œç´¢ã—ã€Arrayã‚’Jsonæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹
+// Object‚ğÄ‹A“I‚ÉŒŸõ‚µAArray‚ğJson•¶š—ñ‚É•ÏŠ·‚·‚é
 function ArrayToStringRecursive(data) {
 	for(var key in data) {
 		if(!data[key].length && !data[key].push) {
@@ -131,7 +147,7 @@ function ArrayToStringRecursive(data) {
 	}
 }
 
-// Arrayã‚’Jsonæ–‡å­—åˆ—ã«å¤‰æ›ã™ã‚‹
+// Array‚ğJson•¶š—ñ‚É•ÏŠ·‚·‚é
 function ArrayToString(array) {
 	var ret = "[";
 	for(var i = 0; i < array.length; i++) {
