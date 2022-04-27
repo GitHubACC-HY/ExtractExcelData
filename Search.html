@@ -1,16 +1,8 @@
 <input type="text" id="searchText"></input>
-<input type="button" onclick="search()" value="æ¤œç´¢"></input>
+<input type="button" onclick="search()" value="ŒŸõ"></input>
 <p id="out"></p>
 <script type="text/javascript" src="searchDataList.js"></script>
 <script>
-	window.onload = function(){
-		for(var key in SearchData) {
-			for(var key2 in SearchData[key]) {
-			console.log(SearchData[key][key2]);
-				SearchData[key][key2] = JSON.parse(SearchData[key][key2]);
-			}
-		}
-	}
 	function search(){
 		var searchText = document.getElementById("searchText").value;
 		
@@ -22,11 +14,12 @@
 				var searchResult = searchResult1 || key2.indexOf(searchText) != -1;
 				
 				if(searchResult) {
-					for(var data of SearchData[key][key2]) {
-						document.getElementById("out").innerHTML = document.getElementById("out").innerHTML + "<BR>" + key2 + " : " + data;
+					for(var data of JSON.parse(SearchData[key][key2])) {
+						var hmlStrKey1 = '<span style="color:red">' + key + '</span>';
+						var hmlStrKey2 = '<span style="color:green">' + key2 + '</span>';
+						var hmlStrData = '<span style="color:blue">' + data + '</span>';
+						document.getElementById("out").innerHTML = document.getElementById("out").innerHTML + '<BR>' + hmlStrKey1 + hmlStrKey2 + ' : ' + hmlStrData;
 					}
-					
-					console.log();
 				}
 			}
 		}
